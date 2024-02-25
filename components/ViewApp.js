@@ -18,7 +18,7 @@ const ViewApp = () => {
     useEffect(() => {
       const fetchApps = async () => {
         try {
-          const appList = await axios.get('http://127.0.0.1:8000/api/app/appmodel/appnames');
+          const appList = await axios.get(process.env.NEXT_PUBLIC_APP_NAME_URL);
           setList(appList.data);
         } catch (error) {
           console.error('Error fetching apps:', error);

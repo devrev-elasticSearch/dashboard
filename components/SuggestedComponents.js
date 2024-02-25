@@ -9,7 +9,7 @@ const SuggestedComponents = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("http://127.0.0.1:8000/api/app/features/getdata", { app_name: "Hey" });
+        const response = await axios.post(process.env.NEXT_PUBLIC_APP_FEATURES_URL, { app_name: "Hey" });
         // Create a map to store unique items based on date
         const uniqueDataMap = new Map();
         response.data.forEach(item => {

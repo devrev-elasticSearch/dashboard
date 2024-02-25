@@ -25,7 +25,7 @@ export default function Home() {
         try {
           const result = [];
           for (const app of selectedApps) {
-            const response = await axios.post('http://127.0.0.1:8000/api/app/datamodel/getall', {
+            const response = await axios.post(process.env.NEXT_PUBLIC_APP_ALL_URL, {
               app_name: app // Assuming the name of the app is stored in `name` property
             });
             result.push({ dateRange: { // Corrected syntax for dateRange object
@@ -48,7 +48,7 @@ export default function Home() {
     const fetchApps = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://127.0.0.1:8000/api/app/appmodel/appnames');
+        const response = await axios.get(process.env.NEXT_PUBLIC_APP_NAME_URL);
         setAppList(response.data);
         setLoading(false);
       } catch (error) {

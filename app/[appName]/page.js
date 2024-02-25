@@ -31,9 +31,10 @@ export default function Home({ params }) {
                 };
           
                 const response = await axios.post(
-                    "http://127.0.0.1:8000/api/app/datamodel/getall", 
+                    process.env.NEXT_PUBLIC_APP_ALL_URL, 
                     requestBody
                 );
+
                 setOrigData(response.data)
                 setLoading(false); // Move setLoading inside try block to ensure it runs after data is fetched
                 
@@ -51,7 +52,7 @@ export default function Home({ params }) {
                 };
           
                 const response = await axios.post(
-                    "http://127.0.0.1:8000/api/app/firstorderlabels", 
+                    process.env.NEXT_PUBLIC_APP_FIRST_URL, 
                     requestBody
                 );
                 setFirstOrderList(response.data);

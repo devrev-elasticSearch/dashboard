@@ -16,7 +16,7 @@ const RegisterApp = () => {
     setLoading(true); // Set loading to true when registering
     try {
       // Make post axios call with app name and app id
-      const response = await axios.post('http://127.0.0.1:8000/api/app/appmodel/getdata', {
+      const response = await axios.post(process.env.NEXT_PUBLIC_APP_DATA_URL, {
         app_name: appName,
         app_id: appId,
       });
@@ -39,7 +39,7 @@ const RegisterApp = () => {
       // Make post request with updated data
       console.log(firstOrderLabels)
       console.log(appData)
-      const response = await axios.post('http://127.0.0.1:8000/api/app/appmodel/insert', {
+      const response = await axios.post(process.env.NEXT_PUBLIC_APP_INSERT_URL, {
         ...appData,
         first_order_labels: firstOrderLabels,
       });

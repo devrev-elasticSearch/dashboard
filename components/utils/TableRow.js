@@ -64,83 +64,56 @@ const TableRow = ({ item, options }) => {
   }
   return (
     <>
-    <tr onClick={handleRowClick} className="border-2 border-gray-200">
-      
-      <td className="py-2 px-4 border-b border-b-gray-50">
-        <span className="text-[13px] font-medium text-gray-400">
-          <span className="text-sm text-gray-600">
-            {formatUnixTimestamp(item.date,'dd-MM-yyyy')}
+    <tr onClick={handleRowClick} className="border-b border-gray-200 hover:bg-gray-100 cursor-pointer">
+        <td className="py-2 px-2 border-b border-gray-50 w-1/10">
+          <span className="text-xs text-gray-600 font-medium">
+            {formatUnixTimestamp(item.date, 'dd-MM-yyyy')}
           </span>
-        </span>
-      </td>
+        </td>
 
-      <td className="py-2 px-4 border-b border-b-gray-50  space-x-1">
-        <div className="flex items-center">
-        {priorityIcon}
-        <span className="inline-block py-1 px-2 rounded-md">
-          {priorityText}
-        </span>
-        </div>
-      </td>
+        <td className="py-2 px-4 border-b border-gray-50 w-1/10">
+          <div className="flex items-center">
+            {priorityIcon}
+            <span className="inline-block py-1 px-2 rounded-md text-sm">{priorityText}</span>
+          </div>
+        </td>
 
-      <td className="py-2 px-4 border-b border-b-gray-50  space-x-1">
-      <div className="flex items-center">
-        {sentimentIcon}
-        <span className="inline-block py-1 px-2 rounded-md">
-          {sentimentText}
-        </span>
-        </div>
-      </td>
-      <td className="py-2 px-4 border-b border-b-gray-50">
-        <div className="flex flex-wrap gap-1">
-          {item.attributes.keywords.map((keyword, index) => (
-            <span
-              key={index}
-              className="bg-blue-200 text-blue-800 px-2 py-1 rounded-md text-sm"
-            >
-              {keyword}
-            </span>
-          ))}
-        </div>
-      </td>
+        <td className="py-2 px-4 border-b border-gray-50 w-1/10">
+          <div className="flex items-center">
+            {sentimentIcon}
+            <span className="inline-block py-1 px-2 rounded-md text-sm">{sentimentText}</span>
+          </div>
+        </td>
 
-      {/* Displaying first order labels */}
-      <td className="py-2 px-4 border-b border-b-gray-50">
-        <div className="flex flex-wrap gap-1">
-          {item.attributes.first_order_labels.map((label, index) => (
-            <span
-              key={index}
-              className="bg-green-200 text-green-800 px-2 py-1 rounded-md text-sm"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-      </td>
+        <td className="py-2 px-4 border-b border-gray-50 w-1/4">
+          <div className="flex flex-wrap gap-1">
+            {item.attributes.keywords.map((keyword, index) => (
+              <span key={index} className="bg-blue-200 text-blue-800 px-2 py-1 rounded-md text-sm">{keyword}</span>
+            ))}
+          </div>
+        </td>
 
-      
-          
+        <td className="py-2 px-4 border-b border-gray-50">
+          <div className="flex flex-wrap gap-1">
+            {item.attributes.first_order_labels.map((label, index) => (
+              <span key={index} className="bg-green-200 text-green-800 px-2 py-1 rounded-md text-sm">{label}</span>
+            ))}
+          </div>
+        </td>
 
-      <td className="py-2 px-4 border-b border-b-gray-50">
-      <div className="flex flex-wrap gap-1">
-        {Object.keys(item.attributes.second_order_labels).map((key) => (
-          <span
-          className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-sm"
-        >
-          <li key={key}>
-            <strong>{key}:</strong>{" "}
-            {item.attributes.second_order_labels[key].join(",")}
-          </li>
-          </span>
-        ))}
-      </div>
-    </td>
-    
-      <td className="py-2 px-4 border-b border-b-gray-50">
-        {/* <DropdownMenu options={options} /> */}
-      </td>
-    </tr>
-    <Modal isOpen={isModalOpen} closeModal={closeModal} item={item} />
+        <td className="py-2 px-4 border-b border-gray-50">
+          <div className="flex flex-col gap-1">
+            {Object.keys(item.attributes.second_order_labels).map((key) => (
+              <span key={key} className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-sm">
+                <strong>{key}:</strong> {item.attributes.second_order_labels[key].join(", ")}
+              </span>
+            ))}
+          </div>
+        </td>
+
+        
+      </tr>
+      <Modal isOpen={isModalOpen} closeModal={closeModal} item={item} />
     </>
   );
 };

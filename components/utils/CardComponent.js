@@ -1,20 +1,20 @@
+import { formatUnixTimestamp } from "./utils"
 
 
-const CardComponent = () => {
+const CardComponent = ({date,text,title}) => {
   return (
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
-  <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-    <p class="text-gray-700 text-base">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-    </p>
+    <div className="max-w-sm rounded overflow-hidden shadow-lg my-2">
+    <div className="px-2 py-0">
+      <div className="font-bold text-base mb-2 mx-2">{title}</div>
+      <p className="text-gray-700 text-sm">
+        {text}
+      </p>
+    </div>
+    <div className="px-2 pt-4 pb-1">
+      <span className="inline-block bg-gray-200 rounded-full px-1 py-1 text-xs font-semibold text-gray-700 mr-2">{formatUnixTimestamp(date).split(" ")[0]}</span>
+      {/* Additional tags can be added here if needed */}
+    </div>
   </div>
-  <div class="px-6 pt-4 pb-2">
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-  </div>
-</div>
   )
 }
 

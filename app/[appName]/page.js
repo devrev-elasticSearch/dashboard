@@ -10,6 +10,8 @@ import UsersTable from "@/components/UsersTable";
 import ComparativeComponent from "@/components/ComparativeComponent";
 import Header from "@/components/Header";
 import Navbar from "@/components/utils/Navbar";
+import CardComponent from "@/components/utils/CardComponent";
+import SuggestedComponents from "@/components/SuggestedComponents";
 
 export default function Home({ params }) {
     const [selectedIssues,setSelectedIssues]=useState([])
@@ -138,27 +140,42 @@ export default function Home({ params }) {
     };
 
     return (
-        <div>
-            {loading ? (
-                <LoadingScreen />
-            ) : (
-                    <div className="container mx-auto px-4">
-                        <Navbar/>
-                        <Header appName={decodeURIComponent(params.appName)} handleDateRangeChange={handleDateRangeChange} dateRange={dateRange} firstOrderList={firstOrderList} handleSelectedIssuesChange={handleSelectedIssuesChange}/>
-                    <TableCard data={data} firstOrderList={firstOrderList}/>
-                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-                        <GraphComponent title="Sentiment Overview" data={sentimentData}/>
-                        <GraphComponent title="Priority Overview" data={priorityData}/>
-                    </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <UsersTable data={firstOrderListData}/>
-                        <UsersTable/>
-                    </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-1 mb-6 mx-8">
-                    <ComparativeComponent initialData={origData}/>
-                    </div>
-                    </div>
-            )}
+        <div className="bg-gray-100 dark:bg-gray-800 min-h-screen">
+  {loading ? (
+    <LoadingScreen />
+  ) : (
+    <div className="container mx-auto px-4">
+      <Navbar />
+      <Header
+        appName={decodeURIComponent(params.appName)}
+        handleDateRangeChange={handleDateRangeChange}
+        dateRange={dateRange}
+        firstOrderList={firstOrderList}
+        handleSelectedIssuesChange={handleSelectedIssuesChange}
+      />
+      <TableCard data={data} firstOrderList={firstOrderList} />
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+        <GraphComponent title="Sentiment Overview" data={sentimentData} />
+        <GraphComponent title="Priority Overview" data={priorityData} />
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-1 mb-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md">
+          <ComparativeComponent initialData={origData} />
         </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md">
+          <UsersTable data={firstOrderListData} />
+        </div>
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md">
+          <SuggestedComponents />
+        </div>
+      </div>
+
+      
+    </div>
+  )}
+</div>
     );
 }

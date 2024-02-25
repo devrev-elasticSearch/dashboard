@@ -98,6 +98,27 @@ const RegisterApp = () => {
 
         {/* Display first order labels for editing */}
         <div className="mt-8">
+        {firstOrderLabels.length==0 && (
+  <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
+    <p className="text-lg font-semibold mb-4">
+      How to Register an App
+    </p>
+    <p className="text-gray-700 mb-4">
+      To register an app, follow these steps:
+    </p>
+    <ol className="list-decimal ml-6 mb-4">
+      <li className="mb-2">Select a name for your app and provide the app ID.</li>
+      <li className="mb-2">Click on "Register" to register your app.</li>
+      <li className="mb-2">After registration, you will receive a list of first order labels and second order labels.</li>
+      <li className="mb-2">The second order labels represent the main issues, while the first order labels are used as labels for these issues.</li>
+      <li className="mb-2">You can edit the issues according to your convenience.</li>
+      <li className="mb-2">Click on "Save" to complete the registration process.</li>
+    </ol>
+    <p className="text-gray-700">
+      Now analytics can be viewed for this app.
+    </p>
+  </div>
+)}
   {firstOrderLabels.map((label, index) => (
     <div key={index} className="mb-4">
       <label className="block font-medium">Label {index + 1}:</label>

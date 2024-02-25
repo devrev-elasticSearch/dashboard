@@ -39,7 +39,7 @@ function modifyPropertyNames(data) {
 }
 
 const ApexChart = (props) => {
-    console.log(props)
+    // console.log(props)
     
     // const [series, setSeries] = useState([
     //   {
@@ -112,12 +112,14 @@ const ApexChart = (props) => {
   
 
 const Histogram = ({ data }) => {
+  if(!data) return;
+  console.log(data)
   if (data.length==0) return (
     <>
     Select a date to show data
     </>
   )
-    console.log(data)
+    
   const processData = (data) => {
     const result = {
       dates: [],
@@ -127,6 +129,7 @@ const Histogram = ({ data }) => {
 
     data.forEach(entry => {
       const filteredData = entry.filtered;
+      console.log(entry.dateRange)
       const dateRange = `${entry.dateRange.fromDate} - ${entry.dateRange.toDate}`;
       result.dates.push(dateRange);
 
@@ -159,17 +162,21 @@ const Histogram = ({ data }) => {
       });
 
       // Push counts to result arrays
-      result.sentiment.positive.push(sentimentCount.positive);
-      
-      result.sentiment.neutral.push(sentimentCount.neutral);
-      result.sentiment.negative.push(sentimentCount.negative);
-      
-      result.priority.low.push(priorityCount.low);
-      
-      result.priority.moderate.push(priorityCount.moderate);
-      
-      result.priority.high.push(priorityCount.high);
-      result.priority.severe.push(priorityCount.severe);
+      const totalSentimentCount=sentimentCount.positive+sentimentCount.neutral+sentimentCount.negative;
+      const totalPriorityCount=priorityCount.low+priorityCount.moderate+priorityCount.severe+priorityCount.high;
+      result.sentiment.positive.push(parseInt((sentimentCount.positive / totalSentimentCount) * 100));
+
+result.sentiment.neutral.push(parseInt((sentimentCount.neutral / totalSentimentCount) * 100));
+
+result.sentiment.negative.push(parseInt((sentimentCount.negative / totalSentimentCount) * 100));
+
+result.priority.low.push(parseInt((priorityCount.low / totalPriorityCount) * 100));
+
+result.priority.moderate.push(parseInt((priorityCount.moderate / totalPriorityCount) * 100));
+
+result.priority.high.push(parseInt((priorityCount.high / totalPriorityCount) * 100));
+
+result.priority.severe.push(parseInt((priorityCount.severe / totalPriorityCount) * 100));
       
     });
 
@@ -190,7 +197,7 @@ const Histogram = ({ data }) => {
   console.log(series)
   return (
     <div>
-      <h2>Histogram</h2>
+      <h2>Sentiment and Analysis Values By Percentages</h2>
       <ApexChart series={series}/>
     </div>
   );

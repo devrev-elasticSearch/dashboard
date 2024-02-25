@@ -37,9 +37,9 @@ const ViewApp = () => {
   
     return (
       <div>
-        Select an app to view its dashboard.
-        <DropdownClick options={list} />
-      </div>
+      <h2 className="text-xl font-semibold mb-4">Select an app to view its dashboard.</h2>
+      <DropdownClick options={list} />
+    </div>
     );
   };
   

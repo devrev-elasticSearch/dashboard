@@ -12,28 +12,23 @@ const UserTableRow = ({ role, amount, totalSum}) => {
   const percentage = totalSum !== 0 ? ((amount / totalSum) * 100).toFixed(2) + "%" : "0%";
     return (
       <tr className="text-gray-700 dark:text-gray-100">
-        <th className="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-          {role}
-        </th>
-        <td className="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          {amount}
-        </td>
-        <td className="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          <div className="flex items-center">
-            <span className="mr-2">{percentage}</span>
-            <div className="relative w-full">
-              <div
-                className={`overflow-hidden h-2 text-xs flex rounded`} style={{ width: percentage, backgroundColor: color }}
-              >
-                <div
-                  style={{ width: percentage }}
-                  className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${barColor}`}
-                ></div>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
+  <th className="border-t-0 px-4 py-2 border-l-0 border-r-0 text-xs whitespace-nowrap text-left w-1/2">
+    <span className="text-xs truncate">{role.slice(0, 50)}</span>
+  </th>
+  <td className="border-t-0 px-4 py-2 border-l-0 border-r-0 text-xs whitespace-nowrap w-1/4">
+    {amount}
+  </td>
+  <td className="border-t-0 px-4 py-2 border-l-0 border-r-0 text-xs whitespace-nowrap w-1/4">
+    <div className="flex items-center">
+      <span className="mr-2">{percentage}</span>
+      <div className="relative w-full">
+        <div className={`overflow-hidden h-2 text-xs flex rounded`} style={{ width: percentage, backgroundColor: color }}>
+          <div style={{ width: percentage }} className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${barColor}`}></div>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
     );
   };
 

@@ -37,18 +37,24 @@ const ComparativeComponent = ({ initialData }) => {
     // console.log(filteredWithDateRange)
 }
     return (
-      <div>
-        <h2> Comparative Analysis on Time Frame</h2>
-        
-        <DateRangeSelector
-          fromDate={fromDate}
-          toDate={toDate}
-          onFromDateChange={handleFromDateChange}
-          onToDateChange={handleToDateChange}
-          onAddDateRange={handleAddDateRange}
-        />
-        <Histogram data={filteredData} />
-      </div>
+      <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+  <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Comparative Analysis on Time Frame</h2>
+  
+  <div className="mb-4">
+    <DateRangeSelector
+      fromDate={fromDate}
+      toDate={toDate}
+      onFromDateChange={handleFromDateChange}
+      onToDateChange={handleToDateChange}
+      onAddDateRange={handleAddDateRange}
+      text="Add Range"
+    />
+  </div>
+  
+  <div>
+    <Histogram data={filteredData} className="w-full" />
+  </div>
+</div>
     );
 }
 

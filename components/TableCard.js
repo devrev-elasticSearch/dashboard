@@ -136,7 +136,6 @@ if (totalPages <= 3) {
               <th className="py-2 px-4 border-b border-b-gray-50">
                 Second Order Labels
               </th>
-              <th className="py-2 px-4 border-b border-b-gray-50">Action</th>
             </tr>
           </thead>
           <tbody>

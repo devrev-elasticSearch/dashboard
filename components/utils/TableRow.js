@@ -7,6 +7,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 const TableRow = ({ item, options }) => {
   if(!item) return;
+  // console.log(item)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleRowClick = () => {
@@ -39,7 +40,7 @@ const TableRow = ({ item, options }) => {
     );
   let priorityIcon;
   let priorityText;
-
+  console.log(item.attributes.priority);
   switch (item.attributes.priority) {
     case "Low":
       priorityIcon = <FaArrowDown className="text-green-500" />;
@@ -53,9 +54,9 @@ const TableRow = ({ item, options }) => {
       priorityIcon = <FaExclamationTriangle className="text-red-500" />;
       priorityText = "High";
       break;
-    case "Severe":
+    case "Critical":
       priorityIcon = <FaExclamationTriangle className="text-red-700" />;
-      priorityText = "Severe";
+      priorityText = "Critical";
       break;
     default:
       priorityIcon = null;
@@ -63,7 +64,7 @@ const TableRow = ({ item, options }) => {
   }
   return (
     <>
-    <tr onClick={handleRowClick}>
+    <tr onClick={handleRowClick} className="border-2 border-gray-200">
       
       <td className="py-2 px-4 border-b border-b-gray-50">
         <span className="text-[13px] font-medium text-gray-400">
@@ -117,20 +118,24 @@ const TableRow = ({ item, options }) => {
         </div>
       </td>
 
-      {/* Displaying second order labels */}
-      <td className="py-2 px-4 border-b border-b-gray-50">
-        <div className="flex flex-wrap gap-1">
-          {item.attributes.second_order_labels.map((label, index) => (
-            <span
-              key={index}
-              className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-sm"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-      </td>
+      
+          
 
+      <td className="py-2 px-4 border-b border-b-gray-50">
+      <div className="flex flex-wrap gap-1">
+        {Object.keys(item.attributes.second_order_labels).map((key) => (
+          <span
+          className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-sm"
+        >
+          <li key={key}>
+            <strong>{key}:</strong>{" "}
+            {item.attributes.second_order_labels[key].join(",")}
+          </li>
+          </span>
+        ))}
+      </div>
+    </td>
+    
       <td className="py-2 px-4 border-b border-b-gray-50">
         {/* <DropdownMenu options={options} /> */}
       </td>

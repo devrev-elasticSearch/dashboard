@@ -9,6 +9,7 @@ import { formatUnixTimestamp, getPriorData, getSentData } from "@/components/uti
 import UsersTable from "@/components/UsersTable";
 import ComparativeComponent from "@/components/ComparativeComponent";
 import Header from "@/components/Header";
+import Navbar from "@/components/utils/Navbar";
 
 export default function Home({ params }) {
     const [selectedIssues,setSelectedIssues]=useState([])
@@ -142,6 +143,7 @@ export default function Home({ params }) {
                 <LoadingScreen />
             ) : (
                     <div className="container mx-auto px-4">
+                        <Navbar/>
                         <Header appName={decodeURIComponent(params.appName)} handleDateRangeChange={handleDateRangeChange} dateRange={dateRange} firstOrderList={firstOrderList} handleSelectedIssuesChange={handleSelectedIssuesChange}/>
                     <TableCard data={data} firstOrderList={firstOrderList}/>
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">

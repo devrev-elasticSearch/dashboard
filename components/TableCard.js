@@ -1,6 +1,6 @@
 "use client";
 import DropdownMenu from "./utils/DropdownMenu";
-import DropdownWithCheckboxes from "./utils/DropdownWithCheckboxes";
+import DropdownWithCheckboxes from "./utils/DropdownClick";
 import TableRow from "./utils/TableRow";
 import { useState, useEffect } from "react";
 const TableCard = ({ appName, data,firstOrderList }) => {
@@ -70,7 +70,18 @@ const TableCard = ({ appName, data,firstOrderList }) => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
+let pageNumbers = [];
+if (totalPages <= 3) {
+  pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+} else if (currentPage <= 2) {
+  pageNumbers = [1, 2, 3];
+} else if (currentPage >= totalPages - 1) {
+  pageNumbers = [totalPages - 2, totalPages - 1, totalPages];
+} else {
+  pageNumbers = [currentPage - 1, currentPage, currentPage + 1];
+}
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -78,7 +89,7 @@ const TableCard = ({ appName, data,firstOrderList }) => {
   return (
     <div className="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md">
       <div className="overflow-hidden">
-        <table className="w-full min-w-[540px]">
+        <table className="w-full min-w-full">
           <thead>
             <tr>
               <th
@@ -139,29 +150,43 @@ const TableCard = ({ appName, data,firstOrderList }) => {
       />
     ))}
 </tbody>
-        </table>
+</table>
         {/* Pagination */}
-      <div className="flex justify-end mt-4">
-        <ul className="flex border border-gray-300 rounded-md">
-          {Array(Math.ceil(sortedData.length / itemsPerPage))
-            .fill()
-            .map((_, index) => (
+        <div className="flex justify-end mt-4">
+          <ul className="flex border border-gray-300 rounded-md">
+            {currentPage > 1 && (
+              <li
+                className={`cursor-pointer py-2 px-4 bg-white text-blue-500`}
+                onClick={() => paginate(1)}
+              >
+                1
+              </li>
+            )}
+            {pageNumbers.map((pageNumber, index) => (
               <li
                 key={index}
                 className={`cursor-pointer py-2 px-4 ${
-                  index + 1 === currentPage
+                  pageNumber === currentPage
                     ? "bg-blue-500 text-white"
                     : "bg-white text-blue-500"
                 }`}
-                onClick={() => paginate(index + 1)}
+                onClick={() => paginate(pageNumber)}
               >
-                {index + 1}
+                {pageNumber}
               </li>
             ))}
-        </ul>
+            {currentPage < totalPages && (
+              <li
+                className={`cursor-pointer py-2 px-4 bg-white text-blue-500`}
+                onClick={() => paginate(totalPages)}
+              >
+                {totalPages}
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
-      </div>
   );
 };
 

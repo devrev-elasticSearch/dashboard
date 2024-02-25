@@ -95,7 +95,7 @@ const ApexChart = (props) => {
         position: 'top',
         horizontalAlign: 'left'
       },
-      colors : ['#8fab52', '#6e755e', '#3f403d', '#a6a19c', '#a68986', '#a84d43', '#a81b0c']
+      colors : ['#3d9a37', '#ffc11f', '#fb0e0e', '#ffb21b', '#ff700a', '#f52500', '#b20303']
     };
   
     // Update the state when the props change

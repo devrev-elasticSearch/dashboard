@@ -113,7 +113,7 @@ const ApexChart = (props) => {
 
 const Histogram = ({ data }) => {
   if(!data) return;
-  console.log(data)
+  // console.log(data)
   if (data.length==0) return (
     <>
     Select a date to show data
@@ -129,7 +129,7 @@ const Histogram = ({ data }) => {
 
     data.forEach(entry => {
       const filteredData = entry.filtered;
-      console.log(entry.dateRange)
+      // console.log(entry.dateRange)
       const dateRange = `${entry.dateRange.fromDate} - ${entry.dateRange.toDate}`;
       result.dates.push(dateRange);
 
@@ -182,9 +182,9 @@ result.priority.severe.push(parseInt((priorityCount.severe / totalPriorityCount)
 
     return result;
   };
-  console.log(data)
+  // console.log(data)
   const processedData = processData(data);
-  console.log(processedData);
+  // console.log(processedData);
   // console.log(convertData(processedData))
   
   const dates=processedData.dates;
@@ -194,7 +194,7 @@ result.priority.severe.push(parseInt((priorityCount.severe / totalPriorityCount)
 // Add series for sentiment
 
 
-  console.log(series)
+  // console.log(series)
   return (
     <div>
       <h2>Sentiment and Analysis Values By Percentages</h2>

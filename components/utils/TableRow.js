@@ -17,7 +17,7 @@ const TableRow = ({ item, options }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  console.log(item)
+  // console.log(item)
   const sentimentClass =
     item.attributes.sentiment === "negative"
       ? "bg-red-100 text-red-700"
@@ -40,7 +40,7 @@ const TableRow = ({ item, options }) => {
     );
   let priorityIcon;
   let priorityText;
-  console.log(item.attributes.priority);
+  // console.log(item.attributes.priority);
   switch (item.attributes.priority) {
     case "Low":
       priorityIcon = <FaArrowDown className="text-green-500" />;

@@ -22,7 +22,6 @@ function AppComparator() {
   const [selectedAppData, setSelectedAppData] = useState([]);
   const [data, setData] = useState([]);
   const getAppData = async () => {
-    console.log("called");
     setLoading(true);
     try {
       const result = [];
@@ -39,7 +38,7 @@ function AppComparator() {
           filtered: response.data,
         });
       }
-      console.log(result); // You can use result as per your requirement (e.g., set it to state)
+     
       setLoading(false);
       setData(result);
       return result;
@@ -65,9 +64,7 @@ function AppComparator() {
   useEffect(() => {
     fetchApps();
   }, []);
-  useEffect(() => {
-    console.log(appList);
-  }, [appList]);
+  
 
   const addApp = () => {
     setSelectedApps((prevSelectedApps) => [...prevSelectedApps, selectedApp]);

@@ -34,7 +34,7 @@ const DropdownMenu = ({ options,onChange }) => {
         onClick={toggleDropdown}
         className="dropdown-toggle flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:bg-gray-300 w-full"
       >
-        <span className="mr-2">Select Major Issues here</span>
+        <span className="mr-2">Select Major Issues here:</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={`h-4 w-4 transition-transform transform ${isOpen ? 'rotate-180' : 'rotate-0'}`}

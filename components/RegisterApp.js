@@ -10,15 +10,27 @@ const RegisterApp = () => {
   const [appId, setAppId] = useState('');
   const [appData, setAppData] = useState({});
   const [firstOrderLabels, setFirstOrderLabels] = useState([]);
+  const [appDesc, setAppDesc] = useState([])
+  const [labelList,setLabelList]=useState([])
   const router = useRouter();
-
+  const handleLabelInputChange = (index, value) => {
+    const updatedLabelList = [...labelList];
+    updatedLabelList[index] = value;
+    setLabelList(updatedLabelList);
+  };
+  const handleAddLabel = () => {
+    setLabelList([...labelList, '']);
+  };
   const handleRegister = async () => {
+    
     setLoading(true); // Set loading to true when registering
     try {
       // Make post axios call with app name and app id
       const response = await axios.post(process.env.NEXT_PUBLIC_APP_DATA_URL, {
         app_name: appName,
         app_id: appId,
+        description: appDesc,
+        general_label_list:labelList
       });
 
       // Extract first order labels from the response
@@ -35,20 +47,55 @@ const RegisterApp = () => {
   };
 
   const handleSave = async () => {
+    setLoading(true);
+  
+    let requestCompleted = false;
+  
+    const appDataReq = {
+      ...appData,
+      first_order_labels: firstOrderLabels,
+    };
+  
+    const timeout = setTimeout(() => {
+      if (!requestCompleted) {
+        setLoading(false);
+        alert("Please wait for 5 minutes for the changes to display. App addition is in progress.");
+        setAppName('');
+        setAppId('');
+        setAppDesc('');
+        setLabelList([]);
+        setFirstOrderLabels([])
+        router.push('/')
+      }
+    }, 5000); // 5 seconds timeout
+  
     try {
-      // Make post request with updated data
-      console.log(firstOrderLabels)
-      console.log(appData)
       const response = await axios.post(process.env.NEXT_PUBLIC_APP_INSERT_URL, {
-        ...appData,
-        first_order_labels: firstOrderLabels,
+        app_model: appDataReq,
+        description: appDesc
       });
-      console.log(response);
-      console.log('Updated data sent successfully:', response.data);
-      router('/');
+  
+      requestCompleted = true;
+      clearTimeout(timeout);
+  
+      if (response && response.status === 200 && response.data.success) {
+        // Handle success response
+        alert("App added successfully");
+        setAppName('');
+        setAppId('');
+        setAppDesc('');
+        setLabelList([]);
+        router.push('/');
+      } else {
+        // Handle other response scenarios (e.g., error, app already exists)
+        alert(response.data.error || "Unknown error occurred");
+      }
     } catch (error) {
-      console.error('Error updating data:', error);
-      // Handle error, show error message, etc.
+      // Handle network errors or other exceptions
+      console.error('Error registering app:', error);
+      alert("An error occurred while registering the app");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,6 +129,34 @@ const RegisterApp = () => {
             value={appId}
             onChange={(e) => setAppId(e.target.value)}
           />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="appDesc" className="block font-medium">App Description:</label> {/* Updated htmlFor */}
+          <input
+            type="text"
+            id="appDesc"
+            className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            value={appDesc}
+            onChange={(e) => setAppDesc(e.target.value)} 
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="labelInput" className="block font-medium">Label List:</label>
+          {labelList.map((label, index) => (
+            <input
+              key={index}
+              type="text"
+              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              value={label}
+              onChange={(e) => handleLabelInputChange(index, e.target.value)}
+            />
+          ))}
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-2"
+            onClick={handleAddLabel}
+          >
+            Add Label
+          </button>
         </div>
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2"

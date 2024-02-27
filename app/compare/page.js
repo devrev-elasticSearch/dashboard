@@ -1,17 +1,17 @@
 "use client"
 import { useState,useEffect } from 'react';
-import Histogram from '@/components/utils/Histogram';
+import dynamic from 'next/dynamic'; 
 import Navbar from '@/components/utils/Navbar';
 import axios from 'axios';
 export default function Home() {
     return (
       <div className="container mx-auto px-4">
-        <Navbar />
+        <Navbar />  
         <AppComparator />
       </div>
     );
   }
-  
+  const Histogram = dynamic(() => import('@/components/utils/Histogram'), { ssr: false });
   function AppComparator() {
     const [selectedApps, setSelectedApps] = useState([]);
     const [appList, setAppList] = useState([]);
@@ -104,10 +104,11 @@ export default function Home() {
   </div>
   {selectedApps.map((app, index) => (
     <div key={index} className="mb-4">
-      <h3 className="text-xl font-semibold mb-2">{app}</h3>
-      {/* Ensure that 'app' object contains necessary properties like 'name' */}
-      {/* <Histogram data={app.data} /> */}
-    </div>
+    <h3 className="text-xl font-semibold mb-2">{app}</h3>
+    {/* Ensure that 'app' object contains necessary properties like 'name' */}
+    {/* Only render Histogram component in the browser environment */}
+    {typeof window !== 'undefined' && <Histogram data={data} />}
+  </div>
   ))}
   {/* Render Histogram for 'data' */}
   {data.length !== 0 && <Histogram data={data} />}

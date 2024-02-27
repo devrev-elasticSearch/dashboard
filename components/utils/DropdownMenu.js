@@ -28,7 +28,7 @@ const DropdownMenu = ({ options,onChange }) => {
   };
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-40">
       <button
         type="button"
         onClick={toggleDropdown}

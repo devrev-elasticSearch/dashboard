@@ -142,6 +142,7 @@ export default function Home({ params }) {
 
     return (
         <div className="bg-gray-100 dark:bg-gray-800 min-h-screen">
+            
   {loading ? (
     <LoadingScreen />
   ) : (
@@ -154,8 +155,17 @@ export default function Home({ params }) {
         firstOrderList={firstOrderList}
         handleSelectedIssuesChange={handleSelectedIssuesChange}
       />
+      {data && data.length === 0 ? (
+  <div className="text-center bg-white">
+    <h1 className="text-3xl font-bold text-red-500">No Data Found.</h1>
+    <p className="text-lg mt-2">You need to add the app_name to your snap-in to get data</p>
+    <p className="text-lg mt-2">
+      Read Docs <a className="text-blue-500 hover:underline" href="https://github.com/devrev-elasticSearch/snapins">here</a>
+    </p>
+  </div>
+) : (
+    <div>
       <TableCard data={data} firstOrderList={firstOrderList} />
-
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
         <GraphComponent title="Sentiment Overview" data={sentimentData} />
         <GraphComponent title="Priority Overview" data={priorityData} />
@@ -173,6 +183,9 @@ export default function Home({ params }) {
           <SuggestedComponents />
         </div>
       </div>
+    </div>
+  )}
+      
 
       
     </div>

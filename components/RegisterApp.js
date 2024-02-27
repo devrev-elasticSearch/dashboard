@@ -190,7 +190,7 @@ const RegisterApp = () => {
       <li className="mb-2">Click on "Save" to complete the registration process.</li>
     </ol>
     <p className="text-gray-700">
-      Now analytics can be viewed for this app.
+      Important: You need to add the app name on your Snap-In to begin the scraping and get the analytics.
     </p>
   </div>
 )}

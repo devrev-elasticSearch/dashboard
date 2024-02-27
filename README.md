@@ -1,7 +1,22 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Env file setup
+
+create a .env with the following strings
+1. NEXT_PUBLIC_APP_NAME_URL
+2. NEXT_PUBLIC_APP_DATA_URL
+3. NEXT_PUBLIC_APP_INSERT_URL
+4. NEXT_PUBLIC_APP_ALL_URL
+5. NEXT_PUBLIC_APP_FIRST_URL
+6. NEXT_PUBLIC_APP_FEATURES_URL1
+
 ## Getting Started
 
+Install Dependancies
+
+```bash
+npm install
+```
 First, run the development server:
 
 ```bash

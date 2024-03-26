@@ -26,21 +26,26 @@ function AppComparator() {
     try {
       const result = [];
       for (const app of selectedApps) {
-        const response = await axios.post(process.env.NEXT_PUBLIC_APP_ALL_URL, {
-          app_name: app, // Assuming the name of the app is stored in `name` property
-        });
+        // const response = await axios.post(process.env.NEXT_PUBLIC_APP_ALL_URL, {
+        //   app_name: app, // Assuming the name of the app is stored in `name` property
+        // });
+        const data=await fetch('/data/all/'+decodeURIComponent(app)+'.json')
+
+        const response=await data.json();
+        console.log(response)
         result.push({
           dateRange: {
             // Corrected syntax for dateRange object
             fromDate: app,
             toDate: "",
           },
-          filtered: response.data,
+          filtered: response,
         });
       }
      
       setLoading(false);
       setData(result);
+      console.log(result)
       return result;
     } catch (error) {
       console.error("Error getting app data:", error);
@@ -52,7 +57,9 @@ function AppComparator() {
   const fetchApps = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(process.env.NEXT_PUBLIC_APP_NAME_URL);
+      // const response = await axios.get(process.env.NEXT_PUBLIC_APP_NAME_URL);
+      const data=await fetch('/data/appnames.json');
+      const response = await data.json();
       setAppList(response.data);
       setLoading(false);
     } catch (error) {
@@ -74,7 +81,7 @@ function AppComparator() {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">
-        Comparative Analysis for Apps for the last month
+        Comparative Analysis for Apps for the last year
       </h2>
       <div className="flex items-center mb-4">
         <select

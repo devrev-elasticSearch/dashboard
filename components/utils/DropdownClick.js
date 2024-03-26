@@ -41,7 +41,7 @@ const DropdownClick = ({ options }) => {
       </button>
       {isOpen && (
         <ul className="absolute top-full left-0 w-full max-h-40 overflow-y-auto mt-1.5 shadow-md bg-white border border-gray-100 rounded-md">
-          {options.map((option, index) => (
+          {options?.map((option, index) => (
             <li key={index} className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleOptionClick(option)}>
               {option}
             </li>

@@ -6,11 +6,14 @@ export function formatUnixTimestamp(timestamp, formatString='dd-MM-yyyy HH:mm:ss
     
     // Format the date using date-fns
     return format(date, formatString);
+    // return timestamp;
 }
 
 export const getSentData = (data) => {
     const sentData = {};
     data.forEach(entry => {
+        
+    // console.log(entry.date)
         const date = formatUnixTimestamp(entry.date).split(' ')[0];
         const sentiment = entry.attributes.sentiment;
         

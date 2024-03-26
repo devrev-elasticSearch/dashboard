@@ -1,4 +1,5 @@
 
+import NoticeBoard from "@/components/NoticeBoard";
 import RegisterApp from "@/components/RegisterApp";
 import Stats3 from "@/components/Stats3";
 import TableCard from "@/components/TableCard";
@@ -17,10 +18,13 @@ export default function Home() {
     <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
       <ViewApp />
     </div>
-
+    <div className="max-w-lg mt-6 mx-auto bg-white rounded-lg shadow-md p-6">
+      <NoticeBoard/>
+    </div>
     <div className="max-w-lg mt-6 mx-auto bg-white rounded-lg shadow-md p-6">
       <RegisterApp />
     </div>
+    
   </div>
 </div>
   );

@@ -103,11 +103,16 @@ const TableRow = ({ item, options }) => {
 
         <td className="py-2 px-4 border-b border-gray-50">
           <div className="flex flex-col gap-1">
-            {Object.keys(item.attributes.second_order_labels).map((key) => (
+            {/* {Object.keys(item.attributes.second_order_labels).map((key) => (
               <span key={key} className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-sm">
                 <strong>{key}:</strong> {item.attributes.second_order_labels[key].join(", ")}
               </span>
-            ))}
+            ))} */}
+            {item.attributes.second_order_label_to_keywordlist.map((label, index) => (
+    <span key={index} className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-sm">
+        <strong>{label.name}:</strong> {label.keywords.join(", ")}
+    </span>
+))}
           </div>
         </td>
 

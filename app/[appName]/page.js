@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import LoadingScreen from "@/components/utils/LoadingScreen";
 import axios from 'axios';
 import GraphComponent from "@/components/GraphComponent";
-import { formatUnixTimestamp, getPriorData, getSentData } from "@/components/utils/utils";
+import { dateToUnixSeconds, formatUnixTimestamp, getPriorData, getSentData } from "@/components/utils/utils";
 import UsersTable from "@/components/UsersTable";
 import ComparativeComponent from "@/components/ComparativeComponent";
 import Header from "@/components/Header";
@@ -30,18 +30,21 @@ export default function Home({ params }) {
                     "app_name": decodeURIComponent(params.appName)
                 };
           
-                const response = await axios.post(
-                    process.env.NEXT_PUBLIC_APP_ALL_URL, 
-                    requestBody
-                );
-
-                setOrigData(response.data)
-                setLoading(false); // Move setLoading inside try block to ensure it runs after data is fetched
+                // const response = await axios.post(
+                //     process.env.NEXT_PUBLIC_APP_ALL_URL, 
+                //     requestBody
+                // );
+                const data=await fetch('/data/all/'+decodeURIComponent(params.appName)+'.json')
+                
+                const response=await data.json();
+                // console.log(response)
+                setOrigData(response)
+                setLoading(false); 
                 
                 // console.log(response.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setLoading(false); // Ensure setLoading is called in case of error
+                setLoading(false); 
             }
         };
         
@@ -51,10 +54,13 @@ export default function Home({ params }) {
                     "app_name": decodeURIComponent(params.appName)
                 };
           
-                const response = await axios.post(
-                    process.env.NEXT_PUBLIC_APP_FIRST_URL, 
-                    requestBody
-                );
+                // const response = await axios.post(
+                //     process.env.NEXT_PUBLIC_APP_FIRST_URL, 
+                //     requestBody
+                // );
+                const data=await fetch('/data/first_order_list/'+decodeURIComponent(params.appName)+'.json')
+                const response=await data.json();
+                // console.log(response)
                 setFirstOrderList(response.data);
                 setSelectedIssues(response.data);
             } catch (error) {
@@ -72,20 +78,25 @@ export default function Home({ params }) {
     // console.log(origData)
     useEffect(() => {
         if (origData && firstOrderList) {
+            
             let filteredDataWithSelectedIssues;
             if (selectedIssues.length === 0) {
                 filteredDataWithSelectedIssues = origData;
             } else {
                 const selectedIssuesSet = new Set(selectedIssues);
                 filteredDataWithSelectedIssues = origData.filter(entry => {
-                    return entry.attributes.first_order_labels.some(label => selectedIssuesSet.has(label));
+                    return entry.attributes.first_order_labels && entry.attributes.first_order_labels.some(label => selectedIssuesSet.has(label));
                 });
             }
-        
+            console.log(filteredDataWithSelectedIssues)
             const filteredData = filteredDataWithSelectedIssues.filter(entry => {
-                const timestamp = entry.date;
+            const timestamp = entry.date;
+                console.log(entry.date)
                 return timestamp >= dateRange.start && timestamp <= dateRange.end;
             });
+            console.log(dateRange.start)
+            console.log(dateRange.end)
+            console.log(filteredData)
             setData(filteredData);
             const sentData = getSentData(filteredData);
             const priorData = getPriorData(filteredData); 
@@ -125,7 +136,7 @@ export default function Home({ params }) {
             
             const currentDate = new Date();
             const startDate = new Date();
-            startDate.setDate(currentDate.getDate() - 30);
+            startDate.setDate(currentDate.getDate() - 360);
             setDateRange({
                 start: startDate.getTime()/1000, // Converting to Unix timestamp
                 end: currentDate.getTime()/1000 // Converting to Unix timestamp
@@ -180,7 +191,7 @@ export default function Home({ params }) {
           <UsersTable data={firstOrderListData} />
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md">
-          <SuggestedComponents />
+          {/* <SuggestedComponents /> */}
         </div>
       </div>
     </div>
